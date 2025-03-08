@@ -2,7 +2,7 @@
 
 namespace Model
 {
-    public class Plant
+    public class Plant : IInit, IShow, IRandomInit, IComparable
     {
         #region Поля
         protected static Random random = new Random();
@@ -23,7 +23,7 @@ namespace Model
         "Зелёный", "Красный", "Жёлтый", "Синий", "Фиолетовый",
         "Оранжевый", "Розовый", "Белый", "Чёрный", "Коричневый"
         };
-        private static uint countOfPlants = 0;
+        public static uint countOfPlants = 0;
         /// <summary>
         /// Название Растения
         /// </summary>
@@ -141,6 +141,49 @@ namespace Model
         public override int GetHashCode()
         {
             return HashCode.Combine(Name, Color);
+        }
+
+        public static uint GetCountOfItem()
+        {
+            return countOfPlants;
+        }
+
+        public int CompareTo(object obj)
+        {
+            if (obj == null) return 1;
+
+            Plant otherPlant = obj as Plant;
+            if (otherPlant == null)
+                throw new ArgumentException("Объект для сравнения должен быть типа Plant");
+            string thisName = this.Name;
+            string otherName = otherPlant.Name;
+            if (thisName == otherName)
+                return 0;
+            int minLength = Math.Min(thisName.Length, otherName.Length);
+            for (int i = 0; i < minLength; i++)
+            {
+                if (thisName[i] < otherName[i])
+                    return -1;
+                if (thisName[i] > otherName[i])
+                    return 1;
+            }
+            return 0;
+        }
+        public void Init(string nameOfPlant, string colorOfPlant, int? heightOfTree)
+        {
+            //Все методы абстрактного должны быть реализованы в потомках
+        }
+        public void Init(string nameOfPlant, string colorOfPlant, string smellOfPlant)
+        {
+            //Все методы абстрактного должны быть реализованы в потомках
+        }
+        public void Init(string nameOfPlant, string colorOfPlant, string smellOfPlant, bool? hasThrons)
+        {
+            //Все методы абстрактного должны быть реализованы в потомках
+        }
+        public void Init(string nameOfPost, int viewsOfPost, int reactionsOfPost, int commentsOfPost)
+        {
+            //Все методы абстрактного должны быть реализованы в потомках
         }
         #endregion
     }

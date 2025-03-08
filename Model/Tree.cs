@@ -16,7 +16,7 @@ namespace Model
             "Ясень","Орех","Кедр","Ива",
             "Бук","Секвойя","Пальма"
         };
-        private static uint countOfTree = 0;
+        public static uint countOfTree = 0;
         /// <summary>
         /// Высота Дерева
         /// </summary>
@@ -93,9 +93,14 @@ namespace Model
             return Height == other.Height;
         }
 
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(base.GetHashCode(), Height);
+        }
 
-
-
-
+        public new static uint GetCountOfItem()
+        {
+            return countOfTree;
+        }
     }
 }

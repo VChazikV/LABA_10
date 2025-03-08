@@ -29,7 +29,7 @@ namespace Controller
             }
         }
 
-        public string ShowPlant(Plant plant)//В функции используем Виртуальный, который сам переопределяться согласно типу
+        public string ShowPlant(IShow plant)//В функции используем Виртуальный, который сам переопределяться согласно типу
         {
             if (plant == null)
                 throw new ArgumentException("Ошибка: растения не существует");
@@ -70,30 +70,39 @@ namespace Controller
             }
             return result;
         }
-        public Plant RandominitPlant(Plant plant)//В функции используем Невиртуальный метод следовательно нужна проверка на тип
+        public IRandomInit RandominitPlant(IRandomInit elem)//В функции используем Невиртуальный метод следовательно нужна проверка на тип
         {
-            Plant result;
-            if (plant == null)
+            IRandomInit result;
+            if (elem == null)
                 throw new ArgumentException("Ошибка: растения не существует");
-            if (plant is Rose rose)
+            if (elem is Rose rose)
             {
                 rose.RandomInit();
                 result = rose;
             }
-            else if (plant is Tree tree)
+            else if (elem is Tree tree)
             {
                 tree.RandomInit();
                 result = tree;
             }
-            else if (plant is Flower flower)
+            else if (elem is Flower flower)
             {
                 flower.RandomInit();
                 result = flower;
             }
-            else
+            else if(elem is Post post)
+            {
+                post.RandomInit();
+                result = post;
+            }
+            else if (elem is Plant plant)
             {
                 plant.RandomInit();
                 result = plant;
+            }
+            else
+            {
+                throw new ArgumentException("Неизвестный тип объекта");
             }
             return result;
         }

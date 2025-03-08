@@ -7,7 +7,8 @@ namespace View
     {
         public static void StartMenu()
         {
-            Plant[] arrayOfPLant = new Plant[20];
+            IRandomInit[] arrayOfPLant = new Plant[20];
+            IRandomInit[] randomElement = new IRandomInit[100];
             string nextAction;
             bool continueRaning = true;
             do
@@ -27,10 +28,10 @@ namespace View
                                     nameOfPlant = ReadMessage.ReadStringFromConsole("Введите название растения:");
                                     colorOfPlant = ReadMessage.ReadStringFromConsole("Введите цвет растения:");
                                     Plant_Checking checking = new Plant_Checking();
-                                    Plant plant_1;
+                                    IInit plant_1;
                                     plant_1 = checking.TryInitPlant("plant", nameOfPlant, colorOfPlant);
-                                    ViewMessage.ShowMessage(checking.ShowPlant(plant_1));
-                                    ViewMessage.ShowMessage(checking.ShowPlantNonVirtual(plant_1));
+                                    ViewMessage.ShowMessage(checking.ShowPlant((IShow)plant_1));
+                                    //ViewMessage.ShowMessage(checking.ShowPlantNonVirtual(plant_1));
                                     correctRunning = true;
                                 }
                                 catch (ArgumentException ex)
@@ -54,11 +55,11 @@ namespace View
                                     nameOfPlant = ReadMessage.ReadStringFromConsole("Введите название дерева:");
                                     colorOfPlant = ReadMessage.ReadStringFromConsole("Введите цвет дерева:");
                                     heightOfPlant = ReadMessage.ReadIntPositiveFromConsole("Высоту дерева:");
-                                    Plant tree_1;
+                                    IInit tree_1;
                                     Plant_Checking checking = new Plant_Checking();
                                     tree_1 = checking.TryInitPlant("tree", nameOfPlant, colorOfPlant, heightOfPlant);
-                                    ViewMessage.ShowMessage(checking.ShowPlant(tree_1));
-                                    ViewMessage.ShowMessage(checking.ShowPlantNonVirtual(tree_1));
+                                    ViewMessage.ShowMessage(checking.ShowPlant((IShow)tree_1));
+                                    //ViewMessage.ShowMessage(checking.ShowPlantNonVirtual(tree_1));
                                     correctRunning = true;
                                 }
                                 catch (ArgumentException ex)
@@ -81,11 +82,11 @@ namespace View
                                     nameOfPlant = ReadMessage.ReadStringFromConsole("Введите название цветка:");
                                     colorOfPlant = ReadMessage.ReadStringFromConsole("Введите цвет цветка:");
                                     smellOfPlant = ReadMessage.ReadStringFromConsole("Введите запах цветка:");
-                                    Plant flower_1;
+                                    IInit flower_1;
                                     Plant_Checking checking = new Plant_Checking();
                                     flower_1 = checking.TryInitPlant("flower", nameOfPlant, colorOfPlant, null, smellOfPlant);
-                                    ViewMessage.ShowMessage(checking.ShowPlant(flower_1));
-                                    ViewMessage.ShowMessage(checking.ShowPlantNonVirtual(flower_1));
+                                    ViewMessage.ShowMessage(checking.ShowPlant((IShow)flower_1));
+                                    //ViewMessage.ShowMessage(checking.ShowPlantNonVirtual(flower_1));
                                     correctRunning = true;
                                 }
                                 catch (ArgumentException ex)
@@ -109,11 +110,11 @@ namespace View
                                     colorOfPlant = ReadMessage.ReadStringFromConsole("Введите цвет Розы: ");
                                     smellOfPlant = ReadMessage.ReadStringFromConsole("Введите запах Розы: ");
                                     hasThorns = ReadMessage.ReadBooleanFromConsole("Есть шипы? Да/Нет: ");
-                                    Plant rose_1;
+                                    IInit rose_1;
                                     Plant_Checking checking = new Plant_Checking();
                                     rose_1 = checking.TryInitPlant("rose", nameOfPlant, colorOfPlant, null, smellOfPlant, hasThorns);
-                                    ViewMessage.ShowMessage(checking.ShowPlant(rose_1));
-                                    ViewMessage.ShowMessage(checking.ShowPlantNonVirtual(rose_1));
+                                    ViewMessage.ShowMessage(checking.ShowPlant((IShow)rose_1));
+                                    //ViewMessage.ShowMessage(checking.ShowPlantNonVirtual(rose_1));
                                     correctRunning = true;
                                 }
                                 catch (ArgumentException ex)
@@ -137,7 +138,7 @@ namespace View
                                 arrayOfPLant[i] = new Tree();
                                 arrayOfPLant[i] = checking.RandominitPlant(arrayOfPLant[i]);
                             }
-                            for (int i = 10; i < 15; i++)
+                            for (int i = 10; i < 14; i++)
                             {
                                 arrayOfPLant[i] = new Flower();
                                 arrayOfPLant[i] = checking.RandominitPlant(arrayOfPLant[i]);
@@ -147,16 +148,17 @@ namespace View
                                 arrayOfPLant[i] = new Rose();
                                 arrayOfPLant[i] = checking.RandominitPlant(arrayOfPLant[i]);
                             }
+                            arrayOfPLant[14] = new Flower("Тестовый", "Цветок", "Тест");
                             ViewMessage.ShowMessage("------------Виртуальный Show------------", "Green");
                             foreach (var p in arrayOfPLant)//Можно var
                             {
-                                ViewMessage.ShowMessage(checking.ShowPlant(p));
+                                ViewMessage.ShowMessage(checking.ShowPlant((IShow)p));
                             }
-                            ViewMessage.ShowMessage("------------НЕВиртуальный Show------------", "Red");
-                            foreach (var p in arrayOfPLant)//Можно var
-                            {
-                                ViewMessage.ShowMessage(checking.ShowPlantNonVirtual(p));
-                            }
+                            //ViewMessage.ShowMessage("------------НЕВиртуальный Show------------", "Red");
+                            //foreach (var p in arrayOfPLant)//Можно var
+                            //{
+                            //    ViewMessage.ShowMessage(checking.ShowPlantNonVirtual(p));
+                            //}
                             break;
                         }
                     case "6":
@@ -166,7 +168,7 @@ namespace View
                                 ViewMessage.ShowEror("Массив пуст, для начала заполните его нажмите (5)");
                                 break;
                             }
-                            Plant[] requstedPlant = PlantRequests.RoseWithoutThorns(arrayOfPLant);
+                            IRandomInit[] requstedPlant = PlantRequests.RoseWithoutThorns(arrayOfPLant);
                             if (requstedPlant.All(item => item == null))
                             {
                                 ViewMessage.ShowMessage("Ни один элемент не найден попробуйте пересоздать массив");
@@ -176,8 +178,12 @@ namespace View
                             ViewMessage.ShowMessage("Розы у которых нет Шипов:", "Green");
                             foreach (var p in requstedPlant)//Можно var
                             {
-                                ViewMessage.ShowMessage(checking.ShowPlantNonVirtual(p));
+                                ViewMessage.ShowMessage(checking.ShowPlant((IShow)p));
                             }
+                            //foreach (var p in requstedPlant)//Можно var
+                            //{
+                            //    ViewMessage.ShowMessage(checking.ShowPlantNonVirtual(p));
+                            //}
                             break;
                         }
                     case "7":
@@ -187,20 +193,27 @@ namespace View
                                 ViewMessage.ShowEror("Массив пуст, для начала заполните его нажмите (5)");
                                 break;
                             }
-                            Plant[] requstedPlant = PlantRequests.TheLessTree(arrayOfPLant);
-                            if (requstedPlant[0].Name == "Заглушка")
+                            IRandomInit[] requstedPlant = PlantRequests.TheLessTree(arrayOfPLant);
+                            Tree.countOfTree--;//Если успею через метод т.к. инкапсуляция
+                            Plant.countOfPlants--;//Если успею через метод т.к. инкапсуляция
+                            if (requstedPlant[0] == new Tree("Заглушка", "Заглушка", 12))
                             {
                                 ViewMessage.ShowMessage("Ни один элемент не найден попробуйте пересоздать массив");
                                 break;
                             }
                             Plant_Checking checking = new Plant_Checking();
                             ViewMessage.ShowMessage("Самое маленькое дерево:", "Green");
+
                             foreach (var p in requstedPlant)//Можно var
                             {
-                                ViewMessage.ShowMessage(checking.ShowPlantNonVirtual(p));
+                                ViewMessage.ShowMessage(checking.ShowPlant((IShow)p));
                             }
+                            //foreach (var p in requstedPlant)//Можно var
+                            //{
+                            //    ViewMessage.ShowMessage(checking.ShowPlantNonVirtual(p));
+                            //}
                             break;
-                        }
+                        };
                     case "8":
                         {
                             if (arrayOfPLant.All(item => item == null))
@@ -210,7 +223,7 @@ namespace View
                             }
                             ViewMessage.ShowMessage("Сладкий, Пряный, Свежий, Горький, Нейтральный", "Green");
                             string smellOfPlant = ReadMessage.ReadStringFromConsole("Введите один из перечисленных запахов по которому хотите найти цветы: ");
-                            Plant[] requstedPlant = PlantRequests.FlowerWithTheSmell(arrayOfPLant, smellOfPlant);
+                            IRandomInit[] requstedPlant = PlantRequests.FlowerWithTheSmell(arrayOfPLant, smellOfPlant);
                             if (requstedPlant.All(item => item == null))
                             {
                                 ViewMessage.ShowMessage("Ни один элемент не найден попробуйте пересоздать массив или ввести другой запах", "Red");
@@ -218,12 +231,97 @@ namespace View
                             }
                             Plant_Checking checking = new Plant_Checking();
                             ViewMessage.ShowMessage($"Найденные цветы по запаху '{smellOfPlant}'", "Green");
+                            //foreach (var p in requstedPlant)//Можно var
+                            //{
+                            //    ViewMessage.ShowMessage(checking.ShowPlantNonVirtual(p));
+                            //}
                             foreach (var p in requstedPlant)//Можно var
                             {
-                                ViewMessage.ShowMessage(checking.ShowPlantNonVirtual(p));
+                                ViewMessage.ShowMessage(checking.ShowPlant((IShow)p));
                             }
                             break;
                         }
+                    case "9":
+                        {
+                            ViewMessage.ShowMessage($"Количество созданных объектов типа Plant = {Plant.GetCountOfItem()}", "Green");
+                            ViewMessage.ShowMessage($"Количество созданных объектов типа Tree = {Tree.GetCountOfItem()}", "Green");
+                            ViewMessage.ShowMessage($"Количество созданных объектов типа Flower = {Flower.GetCountOfItem()}", "Green");
+                            ViewMessage.ShowMessage($"Количество созданных объектов типа Rose = {Rose.GetCountOfItem()}", "Green");
+                            ViewMessage.ShowMessage($"Количество созданных объектов типа Post = {Post.GetCountOfItem()}", "Green");
+                            break;
+                        }
+                    case "10":
+                        {
+                            Random random = new Random();
+                            Plant_Checking checking = new Plant_Checking(); 
+                            for (int i = 0; i < randomElement.Length; i++)
+                            {
+                                int nextElement = random.Next(5);
+                                switch (nextElement)
+                                {
+                                    case 0:
+                                        {
+                                            randomElement[i] = new Plant();
+                                            randomElement[i] = checking.RandominitPlant(randomElement[i]);
+                                            break;
+                                        }
+                                    case 1:
+                                        {
+                                            randomElement[i] = new Tree();
+                                            randomElement[i] = checking.RandominitPlant(randomElement[i]);
+                                            break;
+                                        }
+                                    case 2:
+                                        {
+                                            randomElement[i] = new Flower();
+                                            randomElement[i] = checking.RandominitPlant(randomElement[i]);
+                                            break;
+                                        }
+                                    case 3:
+                                        {
+                                            randomElement[i] = new Rose();
+                                            randomElement[i] = checking.RandominitPlant(randomElement[i]);
+                                            break;
+                                        }
+                                    case 4:
+                                        {
+                                            randomElement[i] = new Post();
+                                            randomElement[i] = checking.RandominitPlant(randomElement[i]);
+                                            break;
+                                        }
+                                }
+                            }
+                            foreach(IShow elem in randomElement)
+                            {
+                                ViewMessage.ShowMessage(checking.ShowPlant(elem));
+                            }
+                            break;
+                        }
+                    case "11":
+                        {
+                            if (arrayOfPLant.All(item => item == null))
+                            {
+                                ViewMessage.ShowEror("Массив пуст, для начала заполните его нажмите (5)");
+                                break;
+                            }
+                            Plant_Checking checking = new Plant_Checking();
+                            ViewMessage.ShowMessage("----------------------До сортировки----------------------", "Red");
+                            foreach (IShow elem in arrayOfPLant)
+                            {
+                                ViewMessage.ShowMessage(checking.ShowPlant(elem));
+                            }
+                            Array.Sort(arrayOfPLant);
+                            ViewMessage.ShowMessage("----------------------После сортировки----------------------", "Green");
+                            foreach (IShow elem in arrayOfPLant)
+                            {
+                                ViewMessage.ShowMessage(checking.ShowPlant(elem));
+                            }
+                            Flower.countOfFlower--;//Если успею через метод т.к. инкапсуляция
+                            Plant.countOfPlants--;//Если успею через метод т.к. инкапсуляция
+                            ViewMessage.ShowMessage($"Объект Flower(\"Тестовый\", \"Цветок\", \"Тест\") имеет индекс: {Array.BinarySearch(arrayOfPLant, new Flower("Тестовый", "Цветок", "Тест"))}");
+                            break;
+                        }
+
                     case "0":
                         ViewMessage.ShowMessage("Конец работы программы", "Red");
                         continueRaning = false;

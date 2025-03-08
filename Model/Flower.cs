@@ -3,7 +3,7 @@
     public class Flower : Plant
     {
         #region Поля
-        private static uint countOfFlower = 0;
+        public static uint countOfFlower = 0;
         protected string smellOfPlant;
         protected static readonly string[] ARROFFLOWERS =
         {
@@ -94,6 +94,11 @@
         public override int GetHashCode()
         {
             return HashCode.Combine(base.GetHashCode(), Smell);
+        }
+
+        public new static uint GetCountOfItem()
+        {
+            return countOfFlower;
         }
         #endregion
     }

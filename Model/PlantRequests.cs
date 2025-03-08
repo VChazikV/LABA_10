@@ -2,7 +2,7 @@
 {
     public class PlantRequests
     {
-        public static Plant[] RoseWithoutThorns(Plant[] plants) 
+        public static IRandomInit[] RoseWithoutThorns(IRandomInit[] plants) 
         {
             Plant[] currentArray = new Plant[plants.Length];
             uint countOfItem = 0;
@@ -23,14 +23,16 @@
             }
             Plant[] resultArray = new Plant[countOfItem];
             Array.Copy(currentArray, resultArray, countOfItem);
-            return resultArray;
+            return (IRandomInit[])resultArray;
         }
 
-        public static Plant[] TheLessTree(Plant[] plants)
+        public static IRandomInit[] TheLessTree(IRandomInit[] plants)
         {
             int theLessHeight = 999999;
             uint countOfItem = 0;
             Plant currentPlant = new Tree("Заглушка", "Заглушка", 12);
+            Tree.countOfTree--;//Если успею через метод т.к. инкапсуляция
+            Plant.countOfPlants--;//Если успею через метод т.к. инкапсуляция
             Plant[] currentArray = new Plant[plants.Length];
             foreach (var plant in plants)
             {
@@ -64,10 +66,10 @@
             }
             Plant[] resultArray = new Plant[countOfItem];
             Array.Copy(currentArray, resultArray, countOfItem);
-            return resultArray;
+            return (IRandomInit[])resultArray;
         }
 
-        public static Plant[] FlowerWithTheSmell(Plant[] plants, string smell)
+        public static IRandomInit[] FlowerWithTheSmell(IRandomInit[] plants, string smell)
         {
             Plant[] currentArray = new Plant[plants.Length];
             uint countOfItem = 0;
@@ -88,7 +90,7 @@
             }
             Plant[] resultArray = new Plant[countOfItem];
             Array.Copy(currentArray, resultArray, countOfItem);
-            return resultArray;
+            return (IRandomInit[])resultArray;
         }
 
     }

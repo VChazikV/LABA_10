@@ -78,6 +78,11 @@
         {
             return HashCode.Combine(base.GetHashCode(), HasThorns);
         }
+
+        public new static uint GetCountOfItem()
+        {
+            return countOfRose;
+        }
         #endregion
     }
 }
