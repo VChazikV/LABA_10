@@ -1,5 +1,6 @@
 ﻿using Controller;
 using Model;
+using System.Drawing;
 using System.Threading.Channels;
 namespace View
 {
@@ -148,7 +149,7 @@ namespace View
                                 arrayOfPLant[i] = new Rose();
                                 arrayOfPLant[i] = checking.RandominitPlant(arrayOfPLant[i]);
                             }
-                            arrayOfPLant[14] = new Flower("Тестовый", "Цветок", "Тест");
+                            arrayOfPLant[14] = new Flower("Тестовый", "Цветок", "Тест", 14);
                             ViewMessage.ShowMessage("------------Виртуальный Show------------", "Green");
                             foreach (var p in arrayOfPLant)//Можно var
                             {
@@ -196,7 +197,7 @@ namespace View
                             IRandomInit[] requstedPlant = PlantRequests.TheLessTree(arrayOfPLant);
                             Tree.countOfTree--;//Если успею через метод т.к. инкапсуляция
                             Plant.countOfPlants--;//Если успею через метод т.к. инкапсуляция
-                            if (requstedPlant[0] == new Tree("Заглушка", "Заглушка", 12))
+                            if (requstedPlant[0] == new Tree("Заглушка", "Заглушка", 12, 0))
                             {
                                 ViewMessage.ShowMessage("Ни один элемент не найден попробуйте пересоздать массив");
                                 break;
@@ -318,7 +319,50 @@ namespace View
                             }
                             Flower.countOfFlower--;//Если успею через метод т.к. инкапсуляция
                             Plant.countOfPlants--;//Если успею через метод т.к. инкапсуляция
-                            ViewMessage.ShowMessage($"Объект Flower(\"Тестовый\", \"Цветок\", \"Тест\") имеет индекс: {Array.BinarySearch(arrayOfPLant, new Flower("Тестовый", "Цветок", "Тест"))}");
+                            ViewMessage.ShowMessage($"Объект Flower(\"Тестовый\", \"Цветок\", \"Тест\") имеет индекс: {Array.BinarySearch(arrayOfPLant, new Flower("Тестовый", "Цветок", "Тест", 0))}");
+                            break;
+                        }
+                    case "12":
+                        {
+                            if (arrayOfPLant.All(item => item == null))
+                            {
+                                ViewMessage.ShowEror("Массив пуст, для начала заполните его нажмите (5)");
+                                break;
+                            }
+                            Plant_Checking checking = new Plant_Checking();
+                            ViewMessage.ShowMessage("----------------------До сортировки----------------------", "Red");
+                            foreach (IShow elem in arrayOfPLant)
+                            {
+                                ViewMessage.ShowMessage(checking.ShowPlant(elem));
+                            }
+                            Array.Sort(arrayOfPLant, new ColorComparer());
+                            ViewMessage.ShowMessage("----------------------После сортировки----------------------", "Green");
+                            foreach (IShow elem in arrayOfPLant)
+                            {
+                                ViewMessage.ShowMessage(checking.ShowPlant(elem));
+                            }
+                            Flower.countOfFlower--;//Если успею через метод т.к. инкапсуляция
+                            Plant.countOfPlants--;//Если успею через метод т.к. инкапсуляция
+                            ViewMessage.ShowMessage($"Объект Flower(\"Тестовый\", \"Цветок\", \"Тест\") имеет индекс: {Array.BinarySearch(arrayOfPLant, new Flower("Тестовый", "Цветок", "Тест", 0))}");
+                            break;
+                        }
+                    case "13":
+                        {
+                            Plant_Checking checking = new Plant_Checking();
+                            ViewMessage.ShowMessage("Проверка клонирования");
+                            Plant originplant = new Plant("Адиска", "Редиска", 52);
+                            Plant shallowCopy = originplant.ShallowCopy();
+                            Plant deepCopy = (Plant)originplant.Clone();
+
+                            ViewMessage.ShowMessage($"Оригинал: \n{checking.ShowPlant((IShow)originplant)}");
+                            ViewMessage.ShowMessage($"Поверхностная копия:  \n{checking.ShowPlant((IShow)shallowCopy)}");
+                            ViewMessage.ShowMessage($"Глубокая копия:  \n{checking.ShowPlant((IShow)deepCopy)}");
+                            ViewMessage.ShowMessage($"Изменим id у оригинала");
+                            originplant.idOfPlants.Number = 3000;
+                            ViewMessage.ShowMessage("После изменения Id:");
+                            ViewMessage.ShowMessage($"Оригинал:  \n{checking.ShowPlant((IShow)originplant)}");
+                            ViewMessage.ShowMessage($"Поверхностная копия:  \n{checking.ShowPlant((IShow)shallowCopy)}");
+                            ViewMessage.ShowMessage($"Глубокая копия:  \n{checking.ShowPlant((IShow)deepCopy)}");
                             break;
                         }
 

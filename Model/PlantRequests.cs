@@ -30,7 +30,7 @@
         {
             int theLessHeight = 999999;
             uint countOfItem = 0;
-            Plant currentPlant = new Tree("Заглушка", "Заглушка", 12);
+            Plant currentPlant = new Tree("Заглушка", "Заглушка", 12, 0);
             Tree.countOfTree--;//Если успею через метод т.к. инкапсуляция
             Plant.countOfPlants--;//Если успею через метод т.к. инкапсуляция
             Plant[] currentArray = new Plant[plants.Length];

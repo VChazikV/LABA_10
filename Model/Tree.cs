@@ -9,7 +9,7 @@ namespace Model
 {
     public class Tree : Plant
     {
-        protected static readonly string[] ARROFTREES = 
+        public static readonly string[] ARROFTREES = //Уровень защиты для тестов
         {
             "Дуб","Сосна","Берёза","Клён",
             "Ель","Каштан","Тополь","Липа",
@@ -44,7 +44,7 @@ namespace Model
             countOfTree++;
         }
 
-        public Tree(string nameOfPlant, string colorOfPlant, int heightOfTree) : base(nameOfPlant, colorOfPlant)
+        public Tree(string nameOfPlant, string colorOfPlant, int heightOfTree, int id) : base(nameOfPlant, colorOfPlant, id)
         {
             Height = heightOfTree;
             countOfTree++;
@@ -52,7 +52,7 @@ namespace Model
 
         public Tree(Tree t) : base(t)
         {
-            Height = 100;
+            Height = t.Height;
             countOfTree++;
         }
 
@@ -81,6 +81,11 @@ namespace Model
             Name = ARROFTREES[random.Next(ARROFTREES.Length-1)];
             Color = ARROFCOLOR[random.Next(ARROFCOLOR.Length-1)];
             Height = random.Next(1, 101);
+        }
+
+        public new Tree Clone()
+        {
+            return new Tree(this.Name, this.Color, this.Height, this.idOfPlants.Number);
         }
 
         public override bool Equals(object obj)

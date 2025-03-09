@@ -61,6 +61,9 @@
             Console.WriteLine("8 - Показать Цветы с определённым запахом");
             Console.WriteLine("9 - Узнать информацию о кол-ве объектов");
             Console.WriteLine("10 - Создать массив с объектами разных типов и вывести его");
+            Console.WriteLine("11 - Сортировка по имени + бинарный поиск IComparable");
+            Console.WriteLine("12 - Сортировка по цвету + бинарный поиск IComparer");
+            Console.WriteLine("13 - Проверка копирования");
             Console.WriteLine("0 - Закончить работу");
         }
         #endregion

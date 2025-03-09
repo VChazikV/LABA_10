@@ -5,14 +5,14 @@
         #region Поля
         public static uint countOfFlower = 0;
         protected string smellOfPlant;
-        protected static readonly string[] ARROFFLOWERS =
+        public static readonly string[] ARROFFLOWERS =
         {
             "Роза", "Лилия", "Тюльпан", "Орхидея",
             "Пион", "Гортензия", "Нарцисс", "Жасмин",
             "Гладиолус", "Астра", "Ромашка", "Хризантема",
             "Гвоздика", "Фиалка", "Эустома"
         };
-        protected static readonly string[] ARROFSMELL =
+        public static readonly string[] ARROFSMELL =
         {
             "Сладкий", "Пряный", "Свежий", "Горький", "Нейтральный"
         };
@@ -45,7 +45,7 @@
         }
         
 
-        public Flower(string nameOfPlant, string colorOfPlant, string smellOfPlant) : base(nameOfPlant, colorOfPlant)
+        public Flower(string nameOfPlant, string colorOfPlant, string smellOfPlant, int id) : base(nameOfPlant, colorOfPlant, id)
         {
             Smell = smellOfPlant;
             countOfFlower++;
@@ -72,6 +72,11 @@
         {
             Init(nameOfPlant, colorOfPlant);//Используем базовый метод
             Smell = smellOfPlant;//Добавляем новое поле
+        }
+
+        public new Flower Clone()
+        {
+            return new Flower(this.Name, this.Color, this.Smell, this.idOfPlants.Number);
         }
 
         public new void RandomInit()//Лучше убрать и сделать не виртуальный с корректными случайными данными закинуть в Интерфйес легко

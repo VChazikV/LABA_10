@@ -29,8 +29,8 @@
             countOfRose++;
         }
 
-        public Rose(string nameOfPlant, string colorOfPlant, string smell, bool hasThorns)
-            : base(nameOfPlant, colorOfPlant, smell)
+        public Rose(string nameOfPlant, string colorOfPlant, string smell, bool hasThornsm, int id)
+            : base(nameOfPlant, colorOfPlant, smell, id)
         {
             HasThorns = hasThorns;
             countOfRose++;
@@ -57,6 +57,11 @@
         {
             Init(nameOfPlant, colorOfPlant, smellOfPlant);//Используем базовый метод
             HasThorns = (bool)hasThrons;//Добавляем новое поле
+        }
+
+        public new Rose Clone()
+        {
+            return new Rose(this.Name, this.Color, this.Smell, this.HasThorns, this.idOfPlants.Number);
         }
 
         public new void RandomInit()//Лучше убрать и сделать не виртуальный с корректными случайными данными закинуть в Интерфйес легко

@@ -2,12 +2,12 @@
 
 namespace Model
 {
-    public class Plant : IInit, IShow, IRandomInit, IComparable
+    public class Plant : IInit, IShow, IRandomInit, IComparable, ICloneable
     {
         #region Поля
         protected static Random random = new Random();
 
-        protected static readonly string[] ARROFNAME =
+        public static readonly string[] ARROFNAME =
         {
         "Ранункулюс", "Лилия", "Тюльпан", "Эустома", "Малина",
     "Дуб", "Берёза", "Сосна", "Клён", "Куст сирени",
@@ -33,6 +33,10 @@ namespace Model
         /// </summary>
         protected string colorOfPlant; //Цвет Растения
 
+        /// <summary>
+        /// ID Растения
+        /// </summary>
+        public IdNumber idOfPlants;
         #endregion
         #region Свойства
         /// <summary>
@@ -42,7 +46,7 @@ namespace Model
         {
             get => nameOfPlant;
 
-            protected set
+            set
             {
                 if (!string.IsNullOrEmpty(value.Trim()))
                 {
@@ -62,7 +66,7 @@ namespace Model
         {
             get => colorOfPlant;
 
-            protected set
+            set
             {
                 if (!string.IsNullOrEmpty(value.Trim()))
                 {
@@ -83,16 +87,18 @@ namespace Model
         {
             Name = $"Растение #{countOfPlants + 1}";
             Color = $"Цвет {countOfPlants + 1}";
+            idOfPlants = new IdNumber();
             countOfPlants++;
         }
 
         /// <summary>
         /// Конструктор c параметрами
         /// </summary>
-        public Plant(string nameOfPlant, string colorOfPlant)
+        public Plant(string nameOfPlant, string colorOfPlant, int id)
         {
             Name = nameOfPlant;
             Color = colorOfPlant;
+            idOfPlants = new IdNumber(id);
             countOfPlants++;
         }
 
@@ -109,7 +115,7 @@ namespace Model
         #region Методы
         public virtual string[] Show()//Вывод данных объекта
         {
-            return ["Name", Name.ToString(), "Color", Color.ToString()];
+            return ["ID", idOfPlants.ToString(), "Name", Name.ToString(), "Color", Color.ToString()];
         }
 
         public string[] ShowNoVirtual()
@@ -123,7 +129,7 @@ namespace Model
             Color = colorOfPlant;
         }
 
-        public  void RandomInit()//Лучше убрать и сделать не виртуальный с корректными случайными данными закинуть в Интерфйес легко
+        public void RandomInit()//Лучше убрать и сделать не виртуальный с корректными случайными данными закинуть в Интерфйес легко
         {
             Name = ARROFNAME[random.Next(ARROFNAME.Length - 1)];
             Color = ARROFCOLOR[random.Next(ARROFCOLOR.Length - 1)];
@@ -158,17 +164,34 @@ namespace Model
             string thisName = this.Name;
             string otherName = otherPlant.Name;
             if (thisName == otherName)
+            {
                 return 0;
+            }
             int minLength = Math.Min(thisName.Length, otherName.Length);
             for (int i = 0; i < minLength; i++)
             {
                 if (thisName[i] < otherName[i])
+                {
                     return -1;
+                }
                 if (thisName[i] > otherName[i])
+                {
                     return 1;
+                }
             }
             return 0;
         }
+
+        public object Clone()
+        {
+            return new Plant(this.Name, this.Color, this.idOfPlants.Number);
+        }
+
+        public Plant ShallowCopy()
+        {
+            return (Plant)this.MemberwiseClone();
+        }
+
         public void Init(string nameOfPlant, string colorOfPlant, int? heightOfTree)
         {
             //Все методы абстрактного должны быть реализованы в потомках
