@@ -18,16 +18,20 @@ namespace Model
     "Бонсай", "Кипарис", "Олива", "Бамбук", "Кактус",
     "Гранат", "Яблоня", "Вишня", "Слива", "Груша"
         };
+
         public static readonly string[] ARROFCOLOR =
         {
         "Зелёный", "Красный", "Жёлтый", "Синий", "Фиолетовый",
         "Оранжевый", "Розовый", "Белый", "Чёрный", "Коричневый"
         };
+
         public static uint countOfPlants = 0;
+
         /// <summary>
         /// Название Растения
         /// </summary>
         protected string nameOfPlant;  //Название Растения
+
         /// <summary>
         /// Цвет Растения
         /// </summary>
@@ -37,7 +41,9 @@ namespace Model
         /// ID Растения
         /// </summary>
         public IdNumber idOfPlants;
+
         #endregion
+
         #region Свойства
         /// <summary>
         /// Свойство для обработки бизнес-правил для Название Растения
@@ -78,7 +84,9 @@ namespace Model
                 }
             }
         }
+
         #endregion
+
         #region Конструкторы
         /// <summary>
         /// Конструктор без атрибутов
@@ -111,29 +119,26 @@ namespace Model
             Color = p.Color;
             countOfPlants++;
         }
-        #endregion
-        #region Методы
-        public virtual string[] Show()//Вывод данных объекта
-        {
-            return ["ID", idOfPlants.ToString(), "Name", Name.ToString(), "Color", Color.ToString()];
-        }
 
-        public string[] ShowNoVirtual()
+        #endregion
+
+        #region Методы стандартные
+
+        public string[] ShowNoVirtual()//Не виртуальный вывод
         {
             return ["Name", Name.ToString(), "Color", Color.ToString()];
         }
 
-        public void Init(string nameOfPlant, string colorOfPlant)//Изменение данных с клавиатуры
+        public static uint GetCountOfItem()//Кол-во объектов типа
         {
-            Name = nameOfPlant;
-            Color = colorOfPlant;
+            return countOfPlants;
         }
 
-        public void RandomInit()//Лучше убрать и сделать не виртуальный с корректными случайными данными закинуть в Интерфйес легко
+        public Plant ShallowCopy()//Копирование не глубокое
         {
-            Name = ARROFNAME[random.Next(ARROFNAME.Length - 1)];
-            Color = ARROFCOLOR[random.Next(ARROFCOLOR.Length - 1)];
+            return (Plant)this.MemberwiseClone();
         }
+
         public override bool Equals(object? obj)
         {
             if (obj == null)
@@ -144,15 +149,56 @@ namespace Model
             return Name == other.Name &&
                    Color == other.Color;
         }
+
         public override int GetHashCode()
         {
             return HashCode.Combine(Name, Color);
         }
 
-        public static uint GetCountOfItem()
+        #endregion
+
+        #region Методы для реализации интерфейсов
+
+        #region Методы Интерфейса IInit
+        public void Init(string nameOfPlant, string colorOfPlant)//Изменение данных с клавиатуры
         {
-            return countOfPlants;
+            Name = nameOfPlant;
+            Color = colorOfPlant;
         }
+
+        public void Init(string nameOfPlant, string colorOfPlant, int? heightOfTree)
+        {
+            //Все методы абстрактного должны быть реализованы в потомках
+        }
+
+        public void Init(string nameOfPlant, string colorOfPlant, string smellOfPlant)
+        {
+            //Все методы абстрактного должны быть реализованы в потомках
+        }
+
+        public void Init(string nameOfPlant, string colorOfPlant, string smellOfPlant, bool? hasThrons)
+        {
+            //Все методы абстрактного должны быть реализованы в потомках
+        }
+
+        public void Init(string nameOfPost, int viewsOfPost, int reactionsOfPost, int commentsOfPost)
+        {
+            //Все методы абстрактного должны быть реализованы в потомках
+        }
+
+        #endregion
+
+        #region Методы Интерфейса IRandomInit
+
+        public void RandomInit()//Случайные данные
+        {
+            Name = ARROFNAME[random.Next(ARROFNAME.Length - 1)];
+            Color = ARROFCOLOR[random.Next(ARROFCOLOR.Length - 1)];
+        }
+
+        #endregion
+
+        #region Методы Интерфейса IComparable
 
         public int CompareTo(object obj)
         {
@@ -182,32 +228,26 @@ namespace Model
             return 0;
         }
 
-        public object Clone()
+        #endregion
+
+        #region Методы Интерфейса IClonable
+
+        public object Clone()//Глубокое копирование
         {
             return new Plant(this.Name, this.Color, this.idOfPlants.Number);
         }
 
-        public Plant ShallowCopy()
+        #endregion
+
+        #region Методы Интерфейса IShow
+
+        public virtual string[] Show()//Вывод данных объекта
         {
-            return (Plant)this.MemberwiseClone();
+            return ["ID", idOfPlants.ToString(), "Name", Name.ToString(), "Color", Color.ToString()];
         }
 
-        public void Init(string nameOfPlant, string colorOfPlant, int? heightOfTree)
-        {
-            //Все методы абстрактного должны быть реализованы в потомках
-        }
-        public void Init(string nameOfPlant, string colorOfPlant, string smellOfPlant)
-        {
-            //Все методы абстрактного должны быть реализованы в потомках
-        }
-        public void Init(string nameOfPlant, string colorOfPlant, string smellOfPlant, bool? hasThrons)
-        {
-            //Все методы абстрактного должны быть реализованы в потомках
-        }
-        public void Init(string nameOfPost, int viewsOfPost, int reactionsOfPost, int commentsOfPost)
-        {
-            //Все методы абстрактного должны быть реализованы в потомках
-        }
+        #endregion
+
         #endregion
     }
 }

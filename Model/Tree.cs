@@ -9,6 +9,8 @@ namespace Model
 {
     public class Tree : Plant
     {
+        #region Поля
+
         public static readonly string[] ARROFTREES = //Уровень защиты для тестов
         {
             "Дуб","Сосна","Берёза","Клён",
@@ -16,11 +18,17 @@ namespace Model
             "Ясень","Орех","Кедр","Ива",
             "Бук","Секвойя","Пальма"
         };
+
         public static uint countOfTree = 0;
+
         /// <summary>
         /// Высота Дерева
         /// </summary>
         protected int heightOfTree;
+
+        #endregion
+
+        #region Свойства
 
         public int Height
         {
@@ -38,6 +46,11 @@ namespace Model
                 }
             }
         }
+
+        #endregion
+
+        #region Конструкторы
+
         public Tree() : base()
         {
             Height = 100;
@@ -56,36 +69,13 @@ namespace Model
             countOfTree++;
         }
 
-        public override string[] Show()
-        {
-            string[] baseInfo = base.Show();
-            string[] treeInfo = new string[baseInfo.Length + 2];
-            Array.Copy(baseInfo, treeInfo, baseInfo.Length);
-            treeInfo[treeInfo.Length - 2] = "Height";
-            treeInfo[treeInfo.Length - 1] = Height.ToString();
-            return treeInfo;
-        }
+        #endregion
+
+        #region Методы стандартные
+
         public new string[] ShowNoVirtual()
         {
             return ["Name", Name.ToString(), "Color", Color.ToString(), "Height", Height.ToString()];//Дублируем все что было
-        }
-
-        public void Init(string nameOfPlant, string colorOfPlant, int? heightOfTree)
-        {
-            Init(nameOfPlant, colorOfPlant);//Используем базовый метод
-            Height = (int)heightOfTree;//Добавляем новое поле
-        }
-
-        public new void RandomInit()//Лучше убрать и сделать не виртуальный с корректными случайными данными закинуть в Интерфйес легко
-        {
-            Name = ARROFTREES[random.Next(ARROFTREES.Length-1)];
-            Color = ARROFCOLOR[random.Next(ARROFCOLOR.Length-1)];
-            Height = random.Next(1, 101);
-        }
-
-        public new Tree Clone()
-        {
-            return new Tree(this.Name, this.Color, this.Height, this.idOfPlants.Number);
         }
 
         public override bool Equals(object obj)
@@ -107,5 +97,56 @@ namespace Model
         {
             return countOfTree;
         }
+
+        #endregion
+
+        #region Методы для реализации интерфейсов
+
+        #region Методы Интерфейса IInit
+
+        public void Init(string nameOfPlant, string colorOfPlant, int? heightOfTree)
+        {
+            Init(nameOfPlant, colorOfPlant);//Используем базовый метод
+            Height = (int)heightOfTree;//Добавляем новое поле
+        }
+
+        #endregion
+
+        #region Методы Интерфейса IRandomInit
+
+        public new void RandomInit()//Лучше убрать и сделать не виртуальный с корректными случайными данными закинуть в Интерфйес легко
+        {
+            Name = ARROFTREES[random.Next(ARROFTREES.Length - 1)];
+            Color = ARROFCOLOR[random.Next(ARROFCOLOR.Length - 1)];
+            Height = random.Next(1, 101);
+        }
+
+        #endregion
+
+        #region Методы Интерфейса IClonable
+
+        public new Tree Clone()
+        {
+            return new Tree(this.Name, this.Color, this.Height, this.idOfPlants.Number);
+        }
+
+        #endregion
+
+        #region Методы Интерфейса IShow
+
+        public override string[] Show()
+        {
+            string[] baseInfo = base.Show();
+            string[] treeInfo = new string[baseInfo.Length + 2];
+            Array.Copy(baseInfo, treeInfo, baseInfo.Length);
+            treeInfo[treeInfo.Length - 2] = "Height";
+            treeInfo[treeInfo.Length - 1] = Height.ToString();
+            return treeInfo;
+        }
+
+        #endregion
+
+        #endregion
+        
     }
 }

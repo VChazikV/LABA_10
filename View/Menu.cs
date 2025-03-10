@@ -8,8 +8,8 @@ namespace View
     {
         public static void StartMenu()
         {
-            IRandomInit[] arrayOfPLant = new Plant[20];
-            IRandomInit[] randomElement = new IRandomInit[100];
+            IRandomInit[] arrayOfPLant = new Plant[20];//Для иерархии классов т.к. работаем с интерфейсами для полиморфизма объекты типа IRandomInit 
+            IRandomInit[] randomElement = new IRandomInit[100];//Для всех классов
             string nextAction;
             bool continueRaning = true;
             do
@@ -18,7 +18,7 @@ namespace View
                 nextAction = ReadMessage.ReadStringFromConsole("Введите число для работы:");
                 switch (nextAction)
                 {
-                    case "1":
+                    case "1"://Создание объекта Plant
                         {
                             bool correctRunning = false;
                             do
@@ -44,7 +44,7 @@ namespace View
                             } while (!correctRunning);
                             break;
                         }
-                    case "2":
+                    case "2"://Создание объекта Tree + редактирование через Init
                         {
                             bool correctRunning = false;
                             do
@@ -72,7 +72,7 @@ namespace View
                             } while (!correctRunning);
                             break;
                         }
-                    case "3":
+                    case "3"://Создание объекта Flower + редактирование через Init
                         {
                             bool correctRunning = false;
                             do
@@ -98,7 +98,7 @@ namespace View
                             } while (!correctRunning);
                             break;
                         }
-                    case "4":
+                    case "4"://Создание объекта Rose + редактирование через Init
                         {
                             bool correctRunning = false;
                             do
@@ -126,7 +126,7 @@ namespace View
                             } while (!correctRunning);
                             break;
                         }
-                    case "5":
+                    case "5"://Заполнение случайными объектами из Иерархии + 1 контрольный для бинарного поиска
                         {
                             Plant_Checking checking = new Plant_Checking();
                             for (int i = 0; i < 5; i++)
@@ -162,7 +162,7 @@ namespace View
                             //}
                             break;
                         }
-                    case "6":
+                    case "6"://Запрос на розы у которых нет шипов
                         {
                             if (arrayOfPLant.All(item => item == null))
                             {
@@ -187,7 +187,7 @@ namespace View
                             //}
                             break;
                         }
-                    case "7":
+                    case "7"://Запрос на самое низкое дерево
                         {
                             if (arrayOfPLant.All(item => item == null))
                             {
@@ -215,7 +215,7 @@ namespace View
                             //}
                             break;
                         };
-                    case "8":
+                    case "8"://Запрос на цветы с определённым запахом
                         {
                             if (arrayOfPLant.All(item => item == null))
                             {
@@ -242,7 +242,7 @@ namespace View
                             }
                             break;
                         }
-                    case "9":
+                    case "9"://Подсчёт объектов каждого типа
                         {
                             ViewMessage.ShowMessage($"Количество созданных объектов типа Plant = {Plant.GetCountOfItem()}", "Green");
                             ViewMessage.ShowMessage($"Количество созданных объектов типа Tree = {Tree.GetCountOfItem()}", "Green");
@@ -251,7 +251,7 @@ namespace View
                             ViewMessage.ShowMessage($"Количество созданных объектов типа Post = {Post.GetCountOfItem()}", "Green");
                             break;
                         }
-                    case "10":
+                    case "10"://Заполнение случайными объектами из всех классов
                         {
                             Random random = new Random();
                             Plant_Checking checking = new Plant_Checking(); 
@@ -298,7 +298,7 @@ namespace View
                             }
                             break;
                         }
-                    case "11":
+                    case "11"://Сортировка объектов иерархии по Имени + бинарный поиск контрольного объекта
                         {
                             if (arrayOfPLant.All(item => item == null))
                             {
@@ -322,7 +322,7 @@ namespace View
                             ViewMessage.ShowMessage($"Объект Flower(\"Тестовый\", \"Цветок\", \"Тест\") имеет индекс: {Array.BinarySearch(arrayOfPLant, new Flower("Тестовый", "Цветок", "Тест", 0))}");
                             break;
                         }
-                    case "12":
+                    case "12"://Сортировка объектов иерархии по Цвету + бинарный поиск контрольного объект
                         {
                             if (arrayOfPLant.All(item => item == null))
                             {
@@ -346,7 +346,7 @@ namespace View
                             ViewMessage.ShowMessage($"Объект Flower(\"Тестовый\", \"Цветок\", \"Тест\") имеет индекс: {Array.BinarySearch(arrayOfPLant, new Flower("Тестовый", "Цветок", "Тест", 0))}");
                             break;
                         }
-                    case "13":
+                    case "13"://Клонирование объектов + проверка 
                         {
                             Plant_Checking checking = new Plant_Checking();
                             ViewMessage.ShowMessage("Проверка клонирования");

@@ -2,7 +2,7 @@
 {
     public class PlantRequests
     {
-        public static IRandomInit[] RoseWithoutThorns(IRandomInit[] plants) 
+        public static IRandomInit[] RoseWithoutThorns(IRandomInit[] plants)//Запрос на розы у которых нет шипов
         {
             Plant[] currentArray = new Plant[plants.Length];
             uint countOfItem = 0;
@@ -26,7 +26,7 @@
             return (IRandomInit[])resultArray;
         }
 
-        public static IRandomInit[] TheLessTree(IRandomInit[] plants)
+        public static IRandomInit[] TheLessTree(IRandomInit[] plants)//Запрос на самое низкое дерево
         {
             int theLessHeight = 999999;
             uint countOfItem = 0;
@@ -69,7 +69,7 @@
             return (IRandomInit[])resultArray;
         }
 
-        public static IRandomInit[] FlowerWithTheSmell(IRandomInit[] plants, string smell)
+        public static IRandomInit[] FlowerWithTheSmell(IRandomInit[] plants, string smell)//Запрос на цветы с определённым запахом
         {
             Plant[] currentArray = new Plant[plants.Length];
             uint countOfItem = 0;

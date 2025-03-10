@@ -5,7 +5,7 @@ using System.Xml.Linq;
 namespace TestPlant
 {
     [TestClass]
-    public sealed class Model_Test
+    public sealed class PlantTest
     {
         [TestMethod]
         public void DefaultConstructor_SetDefaultId()
@@ -54,10 +54,10 @@ namespace TestPlant
         public void ConstructorWithParams_SetId()
         {
             // Arrange
-            int expectedId = 1001;
+            int expectedId = 12;
 
             // Act
-            Plant plant = new Plant("Роза", "Красный", 1001);
+            Plant plant = new Plant("Роза", "Красный", 12);
             int actualId = plant.idOfPlants.Number;
 
             // Assert
@@ -71,7 +71,7 @@ namespace TestPlant
             string expectedName = "Роза";
 
             // Act
-            Plant plant = new Plant("Роза", "Красный", 1001);
+            Plant plant = new Plant("Роза", "Красный", 12);
             string actualName = plant.Name;
 
             // Assert
@@ -85,7 +85,7 @@ namespace TestPlant
             string expectedColor = "Красный";
 
             // Act
-            Plant plant = new Plant("Роза", "Красный", 1001);
+            Plant plant = new Plant("Роза", "Красный", 12);
             string actualColor = plant.Color;
 
             // Assert
@@ -96,7 +96,7 @@ namespace TestPlant
         public void CopyConstructor_CopiesName()
         {
             // Arrange
-            Plant original = new Plant("Тюльпан", "Жёлтый", 1002);
+            Plant original = new Plant("Тюльпан", "Жёлтый", 12);
             string expectedName = "Тюльпан";
 
             // Act
@@ -111,7 +111,7 @@ namespace TestPlant
         public void CopyConstructor_CopiesColor()
         {
             // Arrange
-            Plant original = new Plant("Тюльпан", "Жёлтый", 1002);
+            Plant original = new Plant("Тюльпан", "Жёлтый", 12);
             string expectedColor = "Жёлтый";
 
             // Act
@@ -125,22 +125,18 @@ namespace TestPlant
         // Тесты для свойств
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        public void NameProperty_EmptyString_ThrowsException()
+        public void Name_EmptyString_ThrowsException()
         {
             // Arrange
-            Plant plant = new Plant("", "Красный", 1001);
-
-            // Assert - ожидается исключение
+            Plant plant = new Plant("", "Красный", 12);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        public void ColorProperty_EmptyString_ThrowsException()
+        public void Color_EmptyString_ThrowsException()
         {
             // Arrange
-            Plant plant = new Plant("Роза", "", 1001);
-
-            // Assert - ожидается исключение
+            Plant plant = new Plant("Роза", "", 12);
         }
 
         // Тесты для методов
@@ -148,14 +144,13 @@ namespace TestPlant
         public void Show_NoVirtual()
         {
             // Arrange
-            string[] expectedArray = ["ID", "1001", "Name", "Роза", "Color", "Красный"];
-            Plant plant = new Plant("Роза", "Красный", 1001);
+            string[] expectedArray = ["ID", "12", "Name", "Роза", "Color", "Красный"];
+            Plant plant = new Plant("Роза", "Красный", 12);
 
             // Act
             string[] result = plant.Show();
 
             // Assert
-            Assert.AreEqual(expectedArray.Length, result.Length);
             CollectionAssert.AreEqual(expectedArray, result);
         }
 
@@ -164,22 +159,34 @@ namespace TestPlant
         {
             // Arrange
             string[] expectedArray = ["Name", "Роза", "Color", "Красный"];
-            Plant plant = new Plant("Роза", "Красный", 1001);
+            Plant plant = new Plant("Роза", "Красный", 12);
 
             // Act
             string[] result = plant.ShowNoVirtual();
 
             // Assert
-            Assert.AreEqual(expectedArray.Length, result.Length);
             CollectionAssert.AreEqual(expectedArray, result);
+        }
+
+        [TestMethod]
+        public void Init_SetValues()
+        {
+            Plant tree = new Plant();
+            string newName = "Берёза";
+            string newColor = "Белый";
+
+            tree.Init(newName, newColor);
+
+            Assert.AreEqual(newName, tree.Name);
+            Assert.AreEqual(newColor, tree.Color);
         }
 
 
         [TestMethod]
-        public void RandomInit_SetsRandomName()
+        public void RandomInit_SetRandomName()
         {
             // Arrange
-            Plant plant = new Plant("Роза", "Красный", 1001);
+            Plant plant = new Plant("Роза", "Красный", 12);
 
             // Act
             plant.RandomInit();
@@ -190,10 +197,10 @@ namespace TestPlant
         }
 
         [TestMethod]
-        public void RandomInit_SetsRandomColor()
+        public void RandomInit_SetRandomColor()
         {
             // Arrange
-            Plant plant = new Plant("Роза", "Красный", 1001);
+            Plant plant = new Plant("Роза", "Красный", 12);
 
             // Act
             plant.RandomInit();
@@ -204,11 +211,11 @@ namespace TestPlant
         }
 
         [TestMethod]
-        public void CompareTo_SameName_ReturnsZero()
+        public void CompareTo_EqualsName_ReturnsZero()
         {
             // Arrange
-            Plant plant1 = new Plant("Роза", "Красный", 1001);
-            Plant plant2 = new Plant("Роза", "Белый", 1002);
+            Plant plant1 = new Plant("Роза", "Красный", 12);
+            Plant plant2 = new Plant("Роза", "Белый", 12);
 
             // Act
             int result = plant1.CompareTo(plant2);
@@ -218,25 +225,25 @@ namespace TestPlant
         }
 
         [TestMethod]
-        public void CompareTo_LessThan_ReturnsNegative()
+        public void CompareTo_Less_ReturnsMinus1()
         {
             // Arrange
-            Plant plant1 = new Plant("Дуб", "Зелёный", 1001);
-            Plant plant2 = new Plant("Роза", "Красный", 1002);
+            Plant plant1 = new Plant("Дуб", "Зелёный", 12);
+            Plant plant2 = new Plant("Роза", "Красный", 12);
 
             // Act
             int result = plant1.CompareTo(plant2);
 
             // Assert
-            Assert.AreEqual(-1, result); // "Дуб" < "Роза"
+            Assert.AreEqual(-1, result);
         }
 
         [TestMethod]
-        public void CompareTo_MoreThan_ReturnsNegative()
+        public void CompareTo_More_Returns1()
         {
             // Arrange
-            Plant plant2 = new Plant("Дуб", "Зелёный", 1001);
-            Plant plant1 = new Plant("Роза", "Красный", 1002);
+            Plant plant2 = new Plant("Дуб", "Зелёный", 12);
+            Plant plant1 = new Plant("Роза", "Красный", 12);
 
             // Act
             int result = plant1.CompareTo(plant2);
@@ -246,7 +253,7 @@ namespace TestPlant
         }
 
         [TestMethod]
-        public void Equals_SameValues_ReturnsTrue()
+        public void Equals_EqualsValues_ReturnsTrue()
         {
             // Arrange
             Plant plant1 = new Plant("Роза", "Красный", 1001);
@@ -299,7 +306,7 @@ namespace TestPlant
             int cloneId = clone.idOfPlants.Number;
 
             // Assert
-            Assert.AreEqual(1001, cloneId); // Копия не изменился
+            Assert.AreEqual(1001, cloneId);
         }
 
         [TestMethod]

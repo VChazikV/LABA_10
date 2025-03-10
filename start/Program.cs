@@ -5,7 +5,7 @@ namespace start
     {
         static void Main(string[] args)
         {
-            Menu.StartMenu();
+            Menu.StartMenu();//Точка входа
         }
     }
 }

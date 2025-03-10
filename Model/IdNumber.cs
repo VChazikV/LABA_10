@@ -10,11 +10,15 @@ namespace Model
 {
     public class IdNumber
     {
+        #region Поля
+
         public static int countOfItem = 0;
 
-        private int[] idOfItem = new int[10000];
-
         public int number;
+
+        #endregion
+
+        #region Свойства
 
         public int Number
         {
@@ -32,10 +36,14 @@ namespace Model
                 else
                 {
                     number = value;
-                    idOfItem[countOfItem++] = number;
+                    countOfItem++;
                 }
             }
         }
+
+        #endregion
+
+        #region Конструкторы
         public IdNumber(int number)
         {
             Number = number;
@@ -45,6 +53,9 @@ namespace Model
             Number = countOfItem;
         }
 
+        #endregion
+
+        #region Методы
         public override bool Equals(object? obj)
         {
             if (obj == null)
@@ -64,5 +75,6 @@ namespace Model
         {
             return $"{number}";
         }
+        #endregion
     }
 }

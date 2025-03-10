@@ -1,2 +1,63 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ClassDiagram /> 
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Model.Plant">
+    <Position X="7.25" Y="1.5" Width="2" />
+    <TypeIdentifier />
+    <Lollipop Position="0.222" />
+  </Class>
+  <Class Name="Model.Tree">
+    <Position X="4.5" Y="3.5" Width="2" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Model.Flower">
+    <Position X="10" Y="3.5" Width="2" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Model.Rose">
+    <Position X="12.5" Y="6.25" Width="2" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Model.PlantRequests">
+    <Position X="2.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Model.IdNumber">
+    <Position X="1" Y="3.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Model.ColorComparer">
+    <Position X="1" Y="6.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Model.Post">
+    <Position X="15" Y="1.5" Width="2.75" />
+    <Members>
+      <Method Name="op_Explicit" Hidden="true" />
+      <Method Name="op_Implicit" Hidden="true" />
+      <Method Name="Init" Hidden="true" />
+      <Method Name="op_LogicalNot" Hidden="true" />
+      <Method Name="op_Inequality" Hidden="true" />
+      <Method Name="op_Increment" Hidden="true" />
+      <Method Name="op_Equality" Hidden="true" />
+      <Method Name="ShowCoefficientOfEngagement" Hidden="true" />
+      <Method Name="ShowCoefficientOfEngagement3Part" Hidden="true" />
+      <Method Name="ShowCountOfPosts" Hidden="true" />
+      <Method Name="ShowInfoOfPost" Hidden="true" />
+    </Members>
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="Model.IShow">
+    <Position X="9.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="Model.IInit">
+    <Position X="11.25" Y="0.5" Width="1.75" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="Model.IRandomInit">
+    <Position X="13.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

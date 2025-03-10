@@ -11,16 +11,24 @@ namespace Model
     {
         public int Compare(object x, object y)
         {
-            if (x == null && y == null) return 0;
-            if (x == null) return -1;
-            if (y == null) return 1;
-
+            if (x == null && y == null)
+            {
+                return 0;
+            }
+            if (x == null)
+            {
+                return -1;
+            }
+            if (y == null)
+            {
+                return 1;
+            }
             Plant plantX = x as Plant;
             Plant plantY = y as Plant;
-
             if (plantX == null || plantY == null)
+            {
                 throw new ArgumentException("Один из объектов не является Plant");
-
+            } 
             string thisName = plantX.Color;
             string otherName = plantY.Color;
             if (thisName == otherName)
