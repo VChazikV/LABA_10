@@ -149,7 +149,8 @@ namespace View
                                 arrayOfPLant[i] = new Rose();
                                 arrayOfPLant[i] = checking.RandominitPlant(arrayOfPLant[i]);
                             }
-                            arrayOfPLant[14] = new Flower("Тестовый", "Цветок", "Тест", 14);
+
+
                             ViewMessage.ShowMessage("------------Виртуальный Show------------", "Green");
                             foreach (var p in arrayOfPLant)//Можно var
                             {
@@ -167,6 +168,11 @@ namespace View
                             if (arrayOfPLant.All(item => item == null))
                             {
                                 ViewMessage.ShowEror("Массив пуст, для начала заполните его нажмите (5)");
+                                break;
+                            }
+                            if (arrayOfPLant.Length == 0)
+                            {
+                                ViewMessage.ShowMessage("Создан массив некорректной длины 0");
                                 break;
                             }
                             IRandomInit[] requstedPlant = PlantRequests.RoseWithoutThorns(arrayOfPLant);
@@ -197,6 +203,11 @@ namespace View
                             IRandomInit[] requstedPlant = PlantRequests.TheLessTree(arrayOfPLant);
                             Tree.countOfTree--;//Если успею через метод т.к. инкапсуляция
                             Plant.countOfPlants--;//Если успею через метод т.к. инкапсуляция
+                            if (arrayOfPLant.Length == 0)
+                            {
+                                ViewMessage.ShowMessage("Создан массив некорректной длины 0");
+                                break;
+                            }
                             if (requstedPlant[0] == new Tree("Заглушка", "Заглушка", 12, 0))
                             {
                                 ViewMessage.ShowMessage("Ни один элемент не найден попробуйте пересоздать массив");
@@ -222,9 +233,15 @@ namespace View
                                 ViewMessage.ShowEror("Массив пуст, для начала заполните его нажмите (5)");
                                 break;
                             }
+                            IRandomInit[] test = new IRandomInit[0];
                             ViewMessage.ShowMessage("Сладкий, Пряный, Свежий, Горький, Нейтральный", "Green");
                             string smellOfPlant = ReadMessage.ReadStringFromConsole("Введите один из перечисленных запахов по которому хотите найти цветы: ");
-                            IRandomInit[] requstedPlant = PlantRequests.FlowerWithTheSmell(arrayOfPLant, smellOfPlant);
+                            IRandomInit[] requstedPlant = PlantRequests.FlowerWithTheSmell(test, smellOfPlant);
+                            if (arrayOfPLant.Length == 0)
+                            {
+                                ViewMessage.ShowMessage("Создан массив некорректной длины 0");
+                                break;
+                            }
                             if (requstedPlant.All(item => item == null))
                             {
                                 ViewMessage.ShowMessage("Ни один элемент не найден попробуйте пересоздать массив или ввести другой запах", "Red");
@@ -343,7 +360,8 @@ namespace View
                             }
                             Flower.countOfFlower--;//Если успею через метод т.к. инкапсуляция
                             Plant.countOfPlants--;//Если успею через метод т.к. инкапсуляция
-                            ViewMessage.ShowMessage($"Объект Flower(\"Тестовый\", \"Цветок\", \"Тест\") имеет индекс: {Array.BinarySearch(arrayOfPLant, new Flower("Тестовый", "Цветок", "Тест", 0))}");
+                            ViewMessage.ShowMessage($"Объект Flower(\"Тестовый\", \"Цветок\", \"Тест\") имеет индекс: {Array.BinarySearch(arrayOfPLant, new Flower("Тестовый", "Цветок", "Тест", 0), new ColorComparer())}");
+                            //Исправил бинраный поиск
                             break;
                         }
                     case "13"://Клонирование объектов + проверка 
@@ -357,7 +375,8 @@ namespace View
                             ViewMessage.ShowMessage($"Оригинал: \n{checking.ShowPlant((IShow)originplant)}");
                             ViewMessage.ShowMessage($"Поверхностная копия:  \n{checking.ShowPlant((IShow)shallowCopy)}");
                             ViewMessage.ShowMessage($"Глубокая копия:  \n{checking.ShowPlant((IShow)deepCopy)}");
-                            ViewMessage.ShowMessage($"Изменим id у оригинала");
+                            ViewMessage.ShowMessage($"Изменим" +
+                                $" id у оригинала");
                             originplant.idOfPlants.Number = 3000;
                             ViewMessage.ShowMessage("После изменения Id:");
                             ViewMessage.ShowMessage($"Оригинал:  \n{checking.ShowPlant((IShow)originplant)}");

@@ -14,7 +14,7 @@ namespace Model
 
         public static int countOfItem = 0;
 
-        public int number;
+        private int number;
 
         #endregion
 

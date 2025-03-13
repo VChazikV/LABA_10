@@ -36,7 +36,7 @@ namespace Model
 
             protected set
             {
-                if (value > 0 && value < 1001)
+                if (value > 0 && value < 1001) // КОнстанты статик
                 {
                     heightOfTree = value;
                 }
